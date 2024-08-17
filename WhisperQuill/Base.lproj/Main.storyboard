@@ -77,16 +77,16 @@
             </objects>
             <point key="canvasLocation" x="499.53488372093022" y="23.819742489270389"/>
         </scene>
-        <!--View Controller-->
+        <!--Home Controller-->
         <scene sceneID="LZX-Wm-cnZ">
             <objects>
-                <viewController id="qfU-bV-KJr" sceneMemberID="viewController">
+                <viewController id="qfU-bV-KJr" customClass="HomeController" customModule="WhisperQuill" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WRl-be-JMR">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome again" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cP9-81-Msg">
-                                <rect key="frame" x="103" y="159" width="224" height="41"/>
+                                <rect key="frame" x="103" y="100" width="224" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -99,6 +99,7 @@
                             <constraint firstItem="cP9-81-Msg" firstAttribute="centerX" secondItem="WRl-be-JMR" secondAttribute="centerX" id="ZVO-Qi-Gxm"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="jVA-En-IFf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Jv-I6-GM8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -211,6 +212,7 @@
                         <outlet property="register_EDT_email" destination="HHw-rc-JiF" id="PAL-6r-bjZ"/>
                         <outlet property="register_EDT_password" destination="ThM-Vk-iBv" id="wYh-Qa-Jvz"/>
                         <outlet property="register_EDT_username" destination="Kdt-Jw-V3P" id="sBy-rm-LR3"/>
+                        <segue destination="qfU-bV-KJr" kind="show" identifier="goToHomeController" id="ZMB-QI-Lh7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Pr-y0-mMj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -313,6 +315,7 @@
                     <connections>
                         <outlet property="login_EDT_email" destination="nsg-V3-MZC" id="zeA-lv-rY9"/>
                         <outlet property="login_EDT_password" destination="w4E-ya-E88" id="yR1-th-RaW"/>
+                        <segue destination="qfU-bV-KJr" kind="show" identifier="goToHomeController" id="odD-lT-gwd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p2W-pY-iOI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -339,8 +342,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="JJ7-qq-GAQ"/>
-        <segue reference="4bC-L8-zpr"/>
+        <segue reference="i9a-g1-QfX"/>
+        <segue reference="yny-LG-fFb"/>
+        <segue reference="ZMB-QI-Lh7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bkg" width="3334" height="5001"/>
