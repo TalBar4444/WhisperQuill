@@ -35,11 +35,17 @@ class LoginController: UIViewController {
             }
         }
     }
-
     
     @IBAction func openRegisterController(_ sender: UIButton) {
         self.performSegue(withIdentifier: "goToRegister", sender: self)
+    
+    
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        if let RegisterController = storyboard.instantiateViewController(withIdentifier: "RegisterController") as? RegisterController {
+//            self.present(RegisterController,animated: false, completion: nil)
+//        }
     }
+    
     /*
     // MARK: - Navigation
 

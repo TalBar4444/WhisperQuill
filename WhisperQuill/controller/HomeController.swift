@@ -15,7 +15,10 @@ class HomeController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func openCreatePoemController(_ sender: Any) {
+        
+    }
+    
     /*
     // MARK: - Navigation
 
