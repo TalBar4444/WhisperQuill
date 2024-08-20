@@ -15,6 +15,8 @@
 		CC26A0112C713ECC00F435F9 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC26A0102C713ECC00F435F9 /* HomeController.swift */; };
 		CC97900A2C74ECF800024190 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9790082C74ECF800024190 /* PostTableViewCell.swift */; };
 		CC97900B2C74ECF800024190 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9790092C74ECF800024190 /* PostTableViewCell.xib */; };
+		CC97900D2C75176000024190 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC97900C2C75176000024190 /* extensions.swift */; };
+		CC97900F2C75206F00024190 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC97900E2C75206F00024190 /* FirebaseManager.swift */; };
 		CCEE5A622C72636E0015B5C6 /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEE5A612C72636E0015B5C6 /* CreatePostController.swift */; };
 		CCEE5A652C7270D60015B5C6 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CCEE5A642C7270D60015B5C6 /* FirebaseDatabaseSwift */; };
 		CCEE5A682C7271D00015B5C6 /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEE5A672C7271D00015B5C6 /* PostManager.swift */; };
@@ -34,6 +36,8 @@
 		CC26A0102C713ECC00F435F9 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		CC9790082C74ECF800024190 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		CC9790092C74ECF800024190 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		CC97900C2C75176000024190 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		CC97900E2C75206F00024190 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		CCEE5A612C72636E0015B5C6 /* CreatePostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostController.swift; sourceTree = "<group>"; };
 		CCEE5A672C7271D00015B5C6 /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 		CCF822512C70CA5E00BD811D /* WhisperQuill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhisperQuill.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				CCEE5A672C7271D00015B5C6 /* PostManager.swift */,
+				CC97900E2C75206F00024190 /* FirebaseManager.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -121,6 +126,7 @@
 				CCF8225F2C70CA5F00BD811D /* LaunchScreen.storyboard */,
 				CCF822622C70CA5F00BD811D /* Info.plist */,
 				CC26A0092C71306F00F435F9 /* GoogleService-Info.plist */,
+				CC97900C2C75176000024190 /* extensions.swift */,
 			);
 			path = WhisperQuill;
 			sourceTree = "<group>";
@@ -212,7 +218,9 @@
 				CC26A0112C713ECC00F435F9 /* HomeController.swift in Sources */,
 				CCF822552C70CA5E00BD811D /* AppDelegate.swift in Sources */,
 				CCF822572C70CA5E00BD811D /* SceneDelegate.swift in Sources */,
+				CC97900D2C75176000024190 /* extensions.swift in Sources */,
 				CCEE5A682C7271D00015B5C6 /* PostManager.swift in Sources */,
+				CC97900F2C75206F00024190 /* FirebaseManager.swift in Sources */,
 				CCEE5A622C72636E0015B5C6 /* CreatePostController.swift in Sources */,
 				CC26A0062C7108D400F435F9 /* LoginController.swift in Sources */,
 				CC97900A2C74ECF800024190 /* PostTableViewCell.swift in Sources */,

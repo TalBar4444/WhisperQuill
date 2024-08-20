@@ -25,18 +25,47 @@ class RegisterController: UIViewController {
     }
     
     @IBAction func signupClicked(_ sender: UIButton) {
+        //let userImage = UIImage(named: "user_image_1")
+        guard let username = register_EDT_username.text else { return }
         guard let email = register_EDT_email.text else { return }
         guard let password = register_EDT_password.text else { return }
+              
         
-        Auth.auth().createUser(withEmail: email, password: password) { firebaseResult, error in
-            if let e = error {
-                print("error")
+        // Create the user email and password
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            
+            if username.isEmpty || email.isEmpty || password.isEmpty {
+                self.showErrorAlert(message: "Please fill all needed fields.")
+                return
             }
-            else {
-                // go to home view
-                self.performSegue(withIdentifier: "goToHomeController", sender: self)
+            
+            // Successfully created the user
+            guard let user = authResult?.user else { return }
+            let userID = user.uid
+            
+            // Save the username and the userImage in the database
+            let ref = Database.database().reference()
+            
+            let userData: [String: Any] = [
+                "username" : username,
+               // "userImage" : userImage
+            ]
+            
+            ref.child("users").child(userID).setValue(userData) { error, _ in
+                if let error = error {
+                    print("Error saving username: \(error)")
+                    self.showErrorAlert(message: "Error saving username: \(error.localizedDescription)")
+                }
+                else {
+                    print("Username saved successfully!")
+                    // go to home view
+                    self.performSegue(withIdentifier: "goToHomeController", sender: self)
+                }
+                
             }
+            
         }
+        
     }
 
    
