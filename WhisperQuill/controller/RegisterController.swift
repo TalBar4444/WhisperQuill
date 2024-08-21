@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 import Firebase
 
 class RegisterController: UIViewController {
@@ -25,7 +26,10 @@ class RegisterController: UIViewController {
     }
     
     @IBAction func signupClicked(_ sender: UIButton) {
-        //let userImage = UIImage(named: "user_image_1")
+        let userImage = ("fdsgdfg")//UIImage(named: "user_image_1"),
+//           let base64String = userImage.toBase64String() {
+//            print("Base64 String: \(base64String)")
+//        }
         guard let username = register_EDT_username.text else { return }
         guard let email = register_EDT_email.text else { return }
         guard let password = register_EDT_password.text else { return }
@@ -48,7 +52,7 @@ class RegisterController: UIViewController {
             
             let userData: [String: Any] = [
                 "username" : username,
-               // "userImage" : userImage
+               "userImage" : userImage
             ]
             
             ref.child("users").child(userID).setValue(userData) { error, _ in
@@ -84,4 +88,14 @@ class RegisterController: UIViewController {
     }
     */
 
+}
+
+extension UIImage {
+    func toBase64String() -> String? {
+        guard let imageData = self.pngData() else {
+            print("Failed")
+            return nil
+        }
+        return imageData.base64EncodedString()
+    }
 }

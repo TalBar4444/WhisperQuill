@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 import Firebase
 import FirebaseDatabaseInternal
 
@@ -79,16 +80,19 @@ class CreatePostController: UIViewController {
     func addPostToDatabase(title: String, content: String) {
         guard let userID = Auth.auth().currentUser?.uid else {return}
         let ref = Database.database().reference()
-        let postID = ref.child("users").child(userID).child("posts").childByAutoId().key
+        let postID = ref.child("posts").childByAutoId().key
+        //let postID = ref.child("users").child(userID).child("posts").childByAutoId().key
         
         if let postID = postID {
             let postData: [String: Any] = [
+                "userID": userID,
                 "title": title,
                 "content": content,
                 "likes": 0,
                 "timestamp": [".sv": "timestamp"]
             ]
-            ref.child("users").child(userID).child("posts").child(postID).setValue(postData) { error, _ in
+           // ref.child("users").child(userID).child("posts").child(postID).setValue(postData) { error, _ in
+            ref.child("posts").child(postID).setValue(postData) { error, _ in
                 if let error = error {
                     print("error saving post: \(error)")
                 } else {
