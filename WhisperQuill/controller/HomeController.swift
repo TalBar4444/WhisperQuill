@@ -5,6 +5,7 @@
 //  Created by Tal Bar on 17/08/2024.
 //
 
+import Foundation
 import UIKit
 import Firebase
 import FirebaseDatabase
@@ -69,22 +70,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.configure(with: post)
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-//        cell.configure(with: models[indexPath.row])
-//        return cell
-//    }
 
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as? PostTableViewCell else {
-//            return UITableViewCell()
-//        }
-//        let post = models[indexPath.row]
-//        cell.configure(with: post)
-//        return cell
-//    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80 + 110 + view.frame.size.width
     }
@@ -94,70 +80,36 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func fetchPosts(completion: @escaping([Post]) -> Void) {
-//
-//        let mockPost = Post(userID: "userID",
-//                            username: "username",
-//                            userImage: "userImage",
-//                            title: "title",
-//                            content: "content",
-//                            numberOfLikes: 42,
-//                            timestamp: Int(Date().timeIntervalSince1970))
-//
-//        completion([mockPost])
-//   }
-
         let ref = Database.database().reference().child("posts")
 
         ref.observeSingleEvent(of: .value) { snapshot in
-            print("Snapshot: \(snapshot)")
+        var fetchedPosts: [Post] = []
 
-            if snapshot.exists() {
-                var fetchedPosts: [Post] = []
-
-
-                for child in snapshot.children {
-                    if let postSnapshot = child as? DataSnapshot {
-                        print("Child snapshot: \(postSnapshot)")
+        for child in snapshot.children {
+            if let postSnapshot = child as? DataSnapshot,
+                let postDict = postSnapshot.value as? [String: Any],
+                let userID = postDict["userID"] as? String,
+                let title = postDict["title"] as? String,
+                let content = postDict["content"] as? String,
+                let likes = postDict["likes"] as? Int,
+                let timestamp = postDict["timestamp"] as? Int {
+                
+                self.fetchUserDetails(userID: userID) { username, userImage in
+                        let post = Post(userID: userID,
+                                        username: username,
+                                        userImage: userImage,
+                                        title: title,
+                                        content: content,
+                                        likes: likes,
+                                        timestamp: timestamp)
+                        fetchedPosts.append(post)
                         
-                        if let postDict = postSnapshot.value as? [String: Any] {
-                            print("Pst dict: \(postDict)")
-                            
-                            if let userID = postDict["userID"] as? String,
-                               let title = postDict["title"] as? String,
-                               let content = postDict["content"] as? String,
-                               let numberOfLikes = postDict["numberOfLikes"] as? Int,
-                               let timestamp = postDict["timestamp"] as? Int {
-                                
-                                print("Fetched post Data: \(postDict)")
-                                
-                                self.fetchUserDetails(userID: userID) { username, userImage in
-                                    let post = Post(userID: userID,
-                                                    username: username,
-                                                    userImage: userImage,
-                                                    title: title,
-                                                    content: content,
-                                                    numberOfLikes: numberOfLikes,
-                                                    timestamp: timestamp)
-                                    fetchedPosts.append(post)
-                                    
-                                    fetchedPosts.sort(by: { $0.timestamp > $1.timestamp })
-                                    print("Fetched post: \(fetchedPosts)")
-                                    
-                                    completion(fetchedPosts)
-                                }
-                                
-                            } else {
-                                print("Post data missin require fields: \(postDict)")
-                            }
-                        } else {
-                            print("Invalid post snapshot value: \(postSnapshot.value ?? "No value")")
-                        }
-                    } else {
-                        print("Invalid child snapshot: \(child)")
+                   // fetchedPosts.sort(by: { $0.timestamp > $1.timestamp })
+                       // print("Fetched post: \(fetchedPosts)")
+                        completion(fetchedPosts)
                     }
                 }
-            } else {
-                print("No posts found")
+            
             }
         }
     }
@@ -187,6 +139,6 @@ struct Post {
     let userImage: String
     let title: String
     let content: String
-    let numberOfLikes: Int
+    let likes: Int
     let timestamp: Int
 }

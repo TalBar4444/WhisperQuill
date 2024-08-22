@@ -2,20 +2,19 @@
 //  RegisterController.swift
 //  WhisperQuill
 //
-//  Created by Student31 on 17/08/2024.
+//  Created by Tal Bar on 17/08/2024.
 //
 
 import UIKit
-import Foundation
-import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
 class RegisterController: UIViewController {
 
     @IBOutlet weak var register_EDT_username: UITextField!
     
-    
     @IBOutlet weak var register_EDT_email: UITextField!
-    
     
     @IBOutlet weak var register_EDT_password: UITextField!
     
@@ -26,10 +25,7 @@ class RegisterController: UIViewController {
     }
     
     @IBAction func signupClicked(_ sender: UIButton) {
-        let userImage = ("fdsgdfg")//UIImage(named: "user_image_1"),
-//           let base64String = userImage.toBase64String() {
-//            print("Base64 String: \(base64String)")
-//        }
+        let userImage = UIImage(named: "user_image_1")!
         guard let username = register_EDT_username.text else { return }
         guard let email = register_EDT_email.text else { return }
         guard let password = register_EDT_password.text else { return }
@@ -47,29 +43,69 @@ class RegisterController: UIViewController {
             guard let user = authResult?.user else { return }
             let userID = user.uid
             
-            // Save the username and the userImage in the database
-            let ref = Database.database().reference()
-            
-            let userData: [String: Any] = [
-                "username" : username,
-               "userImage" : userImage
-            ]
-            
-            ref.child("users").child(userID).setValue(userData) { error, _ in
-                if let error = error {
-                    print("Error saving username: \(error)")
-                    self.showErrorAlert(message: "Error saving username: \(error.localizedDescription)")
+            self.uploadUserImage(image: userImage) { url in
+                if let url = url {
+                    self.saveUserData(userID: userID, username: username, userImageURL: url)
+                } else {
+                    print("failed to upload image or get download URL")
                 }
-                else {
-                    print("Username saved successfully!")
-                    // go to home view
-                    self.performSegue(withIdentifier: "goToHomeController", sender: self)
-                }
+            }
+        }
+    }
+    
+    func saveUserData(userID: String, username: String, userImageURL: URL) {
+        // Save the username and the userImage in the database
+        let ref = Database.database().reference().child("users").child(userID)
+        
+        // Data to save
+        let userData: [String: Any] = [
+            "username" : username,
+            "userImage" : userImageURL.absoluteString
+        ]
+        
+        ref.setValue(userData) { (error, _) in
+            if let error = error {
+                print("Error saving user data: \(error.localizedDescription)")
+            }
+            else {
+                print("User data saved successfully!")
                 
+                // go to home view
+                self.performSegue(withIdentifier: "goToHomeController", sender: self)
             }
             
         }
         
+    }
+    
+
+    func uploadUserImage(image: UIImage, completion: @escaping (URL?) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            print("Error: could not convert image to data.")
+            completion(nil)
+            return
+        }
+        
+        // Create reference to FirebaseStorage
+        let storageRef = Storage.storage().reference().child("userImage/\(UUID().uuidString).jpg")
+        
+        //Upload the image data
+        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+            if let error = error {
+                print("Error uploading image: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            storageRef.downloadURL { (url, error ) in
+                if let error = error {
+                    print("Error fetching download URL: \(error.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+                completion(url)
+            }
+        }
     }
 
    
@@ -88,14 +124,4 @@ class RegisterController: UIViewController {
     }
     */
 
-}
-
-extension UIImage {
-    func toBase64String() -> String? {
-        guard let imageData = self.pngData() else {
-            print("Failed")
-            return nil
-        }
-        return imageData.base64EncodedString()
-    }
 }

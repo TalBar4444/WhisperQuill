@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  WhisperQuill
 //
-//  Created by Student31 on 17/08/2024.
+//  Created by Tal Bar on 17/08/2024.
 //
 
 import UIKit

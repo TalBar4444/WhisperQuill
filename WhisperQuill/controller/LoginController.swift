@@ -5,8 +5,9 @@
 //  Created by Tal Bar on 17/08/2024.
 //
 
+import Foundation
 import UIKit
-import Firebase
+import FirebaseAuth
 
 class LoginController: UIViewController {
    

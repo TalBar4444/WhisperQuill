@@ -34,10 +34,10 @@ class PostTableViewCell: UITableViewCell {
                           
     func configure(with model: Post) {
         self.home_LBL_username.text = model.username
-        self.home_IMG_userImage.image = UIImage(named: model.userImage)
         self.home_LBL_title.text = model.title
         self.home_LAY_content.text = model.content
-        self.home_LBL_likes.text = "\(model.numberOfLikes) Likes"
+        self.home_LBL_likes.text = "\(model.likes) Likes"
+        self.home_IMG_userImage.image = UIImage(named: "user_image_1")
         
     }
     

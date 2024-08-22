@@ -5,7 +5,7 @@
 //  Created by Student31 on 17/08/2024.
 //
 
-
+import Foundation
 import UIKit
 
 class StartController: UIViewController {
