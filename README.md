@@ -1,17 +1,13 @@
 # WhisperQuill
 
 WhisperQuill is a social media app designed for poets and songwriters to share their creations anonymously with a community of like-minded individuals. 
-The app allows users to upload their posts, view and interact with others' content, and manage their own profiles.
 
 ## Features
 
 - **Anonymous Posting**: Share your poems and song lyrics anonymously with the community.
 - **User Authentication**: Register and log in to keep track of your posts and interact with others.
 - **Feed of Posts**: Browse through a feed of posts from other poets and songwriters.
-
-## Screenshots
-
-(Add screenshots of the app here to showcase the interface.).
+- **Firebase Integration**: Secure and scalable backend using Firebase for authentication, database management, and real-time updates.
 
 ## Usage
 
@@ -25,6 +21,11 @@ The app allows users to upload their posts, view and interact with others' conte
 ### View Feed
 - Browse through a feed of posts from other users. Discover new poetry and song lyrics and get inspired by the community.
 
+## Firebase Integration
+
+WhisperQuill leverages Firebase for:
+- **Authentication**: Secure user registration and login using Firebase Authentication.
+- **Realtime Database**: Storing and retrieving user posts, likes, and favorites with Firebase Realtime Database.
 
 ## App Architecture
 
@@ -32,6 +33,7 @@ WhisperQuill uses a combination of SwiftUI and Storyboard to create a responsive
 
 - **SwiftUI**: Used for modern, dynamic UI elements and components that benefit from SwiftUI's declarative syntax.
 - **Storyboard**: Utilized for managing navigation, view controllers, and traditional UI elements that require the visual power of Storyboard.
+- **Firebase**: For backend services, ensuring data persistence, user authentication, and real-time data synchronization.
 
 ## License
 
