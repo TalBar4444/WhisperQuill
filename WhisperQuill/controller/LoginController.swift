@@ -28,6 +28,7 @@ class LoginController: UIViewController {
         
         Auth.auth().signIn(withEmail: email, password: password) { firebaseResult, error in
             if let e = error {
+                self.showErrorAlert(message: "User is not exist, Please Register first")
                 print("error")
             }
             else {
