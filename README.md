@@ -2,8 +2,7 @@
 
 WhisperQuill is a social media app designed for poets and songwriters to share their creations anonymously with a community of like-minded individuals. 
 
-<img src="https://github.com/TalBar4444/WhisperQuill/img_welcome.png" width="300">
-
+<img src="https://github.com/TalBar4444/WhisperQuill/blob/main/img_welcome.png" width="300">
 
 ## Features
 
