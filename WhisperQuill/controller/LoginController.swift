@@ -40,21 +40,6 @@ class LoginController: UIViewController {
     @IBAction func openRegisterController(_ sender: UIButton) {
         self.performSegue(withIdentifier: "goToRegister", sender: self)
     
-    
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        if let RegisterController = storyboard.instantiateViewController(withIdentifier: "RegisterController") as? RegisterController {
-//            self.present(RegisterController,animated: false, completion: nil)
-//        }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

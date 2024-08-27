@@ -10,22 +10,27 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreatePostDelegate {
+
+
+    func didCreatePost(_ post: Post) {
+        self.models.append(post)
+        DispatchQueue.main.async {
+            self.table.reloadData()
+        }
+    }
+     
      
     @IBOutlet var table: UITableView!
     
     var models = [Post]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         table.register(PostTableViewCell.nib(), forCellReuseIdentifier: PostTableViewCell.identifier)
         table.delegate = self
         table.dataSource = self
-        
-//        models = [
-//            Post(username: "Test User", userImage: "defaultImage", title: "Test Title", content: "Test Content", numberOfLikes: 5, timestamp: Int(Date().timeIntervalSince1970))
-//        ]
         
         fetchPosts { posts in
             self.models = posts
@@ -34,25 +39,17 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.table.reloadData()
             }
         }
-//        models.append(Post(username: "TalBar",
-//                           userImage: "user_image_1",
-//                           title: "yes",
-//                           content: "Stringgnonono /n no nofhfdfdhfdhfdfdhf",
-//                           numberOfLikes: 40))
-//        models.append(Post(username: "TYossi",
-//                           userImage: "user_image_1",
-//                           title: "My song",
-//                           content: "poems is fun",
-//                           numberOfLikes: 200))
-//        models.append(Post(username: "the poet",
-//                           userImage: "user_image_2",
-//                           title: "Whay is a poet",
-//                           content: "Stringgdghdfbdffdgdfhdfhfdfdhfdhfdfdhf",
-//                           numberOfLikes: 0))
+        
     }
     
+    
+    
     @IBAction func openCreatePoemController(_ sender: Any) {
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let createPostVC = storyboard.instantiateViewController(withIdentifier: "CreatePostController") as? CreatePostController {
+            createPostVC.delegate = self
+            self.present(createPostVC, animated: true, completion: nil)
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,7 +101,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                         timestamp: timestamp)
                         fetchedPosts.append(post)
                         
-                   // fetchedPosts.sort(by: { $0.timestamp > $1.timestamp })
+                    fetchedPosts.sort(by: { $1.timestamp > $0.timestamp })
                        // print("Fetched post: \(fetchedPosts)")
                         completion(fetchedPosts)
                     }
@@ -130,8 +127,22 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-
+    func signInUser(email: String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("Error signing in: \(error)")
+                // Handle error (e.g., show an alert)
+            } else {
+                // Successfully signed in, navigate to HomeController
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeController") as? HomeController {
+                    self.present(homeVC, animated: true, completion: nil)
+                }
+            }
+        }
+    }
 }
+
 
 struct Post {
     let userID: String

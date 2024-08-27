@@ -6,17 +6,33 @@
 //
 
 import UIKit
-import FirebaseCore
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        return true
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+               
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if Auth.auth().currentUser != nil {
+                    // User is signed in, navigate to HomeController
+                    let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeController") as! HomeController
+                    self.window?.rootViewController = homeVC
+                } else {
+                    // No user is signed in, navigate to LoginViewController
+                    let loginVC = storyboard.instantiateViewController(withIdentifier: "RegisterController") as! RegisterController
+                    self.window?.rootViewController = loginVC
+                }
+                
+                self.window?.makeKeyAndVisible()
+                
+            return true
     }
 
     // MARK: UISceneSession Lifecycle
