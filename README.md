@@ -21,8 +21,7 @@ WhisperQuill is a social media app designed for poets and songwriters to share t
 ### View Feed
 - Browse through a feed of posts from other users. Discover new poetry and song lyrics and get inspired by the community.
 
-## Firebase Integration
-
+### Firebase Integration
 WhisperQuill leverages Firebase for:
 - **Authentication**: Secure user registration and login using Firebase Authentication.
 - **Realtime Database**: Storing and retrieving user posts, likes, and favorites with Firebase Realtime Database.
